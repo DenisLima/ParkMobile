@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="details_artist_name">Artist name:</string>
+    <string name="details_track_name">Track name:</string>
+    <string name="details_collection_name">Collection name:</string>
+</resources>

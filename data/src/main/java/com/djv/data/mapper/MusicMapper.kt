@@ -7,5 +7,9 @@ fun MusicData.transform(): Music =
     Music(
         artistName = this.artistName,
         trackName = this.trackName,
-        pictureUrl = this.pictureUrl
+        pictureUrl = this.pictureUrl,
+        collectionName = this.collectionName,
+        collectionPrice = this.collectionPrice,
+        trackPrice = this.trackPrice,
+        currency = this.currency
     )

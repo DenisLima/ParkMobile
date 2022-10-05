@@ -9,9 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.djv.domain.model.Music
@@ -22,6 +21,10 @@ import com.djv.presentation.databinding.FragmentHomeBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment: Fragment(), MusicClickListener {
+
+    companion object {
+        const val MUSIC_ARGS = "musicArgs"
+    }
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -122,6 +125,7 @@ class HomeFragment: Fragment(), MusicClickListener {
     }
 
     override fun onClick(music: Music) {
-        findNavController().navigate(R.id.action_homeFragment_to_detailsFragment)
+        val bundle = bundleOf(MUSIC_ARGS to music)
+        findNavController().navigate(R.id.action_homeFragment_to_detailsFragment, bundle)
     }
 }
