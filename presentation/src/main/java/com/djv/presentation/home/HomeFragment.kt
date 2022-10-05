@@ -1,30 +1,40 @@
 package com.djv.presentation.home
 
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.djv.domain.model.Music
 import com.djv.presentation.adapter.MusicAdapter
 import com.djv.presentation.adapter.MusicClickListener
-import com.djv.presentation.databinding.ActivityHomeBinding
+import com.djv.presentation.databinding.FragmentHomeBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HomeActivity: AppCompatActivity(), MusicClickListener {
+class HomeFragment: Fragment(), MusicClickListener {
 
-    private lateinit var binding: ActivityHomeBinding
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
     private val viewModel by viewModel<HomeViewModel>()
     private val musicAdapter = MusicAdapter(this)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityHomeBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initComponents()
         prepareObservers()
     }
@@ -59,7 +69,7 @@ class HomeActivity: AppCompatActivity(), MusicClickListener {
     }
 
     private fun prepareObservers() {
-        viewModel.getViewState().observe(this) {
+        viewModel.getViewState().observe(viewLifecycleOwner) {
             when(it) {
                 is HomeViewModel.HomeViewState.ErrorMessage -> showErrorMessage(it.errorMessage)
                 HomeViewModel.HomeViewState.HiddenLoading -> hiddenLoading()
@@ -80,7 +90,7 @@ class HomeActivity: AppCompatActivity(), MusicClickListener {
     }
 
     private fun hiddenKeyboard() {
-        val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager = activity?.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(binding.searchText.windowToken, 0)
     }
 
@@ -104,10 +114,10 @@ class HomeActivity: AppCompatActivity(), MusicClickListener {
 
     private fun showErrorMessage(message: String) {
         hiddenLoading()
-        Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 
     override fun onClick(music: Music) {
-        Toast.makeText(applicationContext, "Aqui veio ${music.artistName}", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "Aqui veio ${music.artistName}", Toast.LENGTH_LONG).show()
     }
 }

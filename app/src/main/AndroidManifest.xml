@@ -14,11 +14,7 @@
         android:theme="@style/Theme.ParkMobile">
         <activity
             android:name=".MainActivity"
-            android:exported="true" />
-
-        <activity
-            android:name="com.djv.presentation.home.HomeActivity"
-            android:exported="true">
+            android:exported="true" >
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
