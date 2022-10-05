@@ -40,11 +40,17 @@ class HomeViewModel(
                     viewStateLv.postValue(HomeViewState.ErrorMessage(it.message ?: ""))
                 }
                 .collect {
-                    viewStateLv.postValue(
-                        HomeViewState.LoadedMusicList(
-                            musicList = it.results
+                    if (it.results.isEmpty()) {
+                        viewStateLv.postValue(
+                            HomeViewState.EmptyList
                         )
-                    )
+                    } else {
+                        viewStateLv.postValue(
+                            HomeViewState.LoadedMusicList(
+                                musicList = it.results
+                            )
+                        )
+                    }
                 }
         }
     }
@@ -61,5 +67,6 @@ class HomeViewModel(
         data class LoadedMusicList(val musicList: List<Music>) : HomeViewState()
         object EnableSearchButton : HomeViewState()
         object DisableSearchButton : HomeViewState()
+        object EmptyList : HomeViewState()
     }
 }

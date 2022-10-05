@@ -1,6 +1,7 @@
 package com.djv.presentation.home
 
 import android.content.Context.INPUT_METHOD_SERVICE
+import android.opengl.Visibility
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -70,6 +71,7 @@ class HomeFragment: Fragment(), MusicClickListener {
         })
 
         binding.searchButton.setOnClickListener {
+            hiddenEmptyList()
             val searchText = binding.searchText.text.toString()
             viewModel.initEvent(HomeViewModel.HomeEvent.GetMusicList(searchText))
         }
@@ -84,6 +86,7 @@ class HomeFragment: Fragment(), MusicClickListener {
                 HomeViewModel.HomeViewState.ShowLoading -> showLoading()
                 HomeViewModel.HomeViewState.DisableSearchButton -> disableSearchButton()
                 HomeViewModel.HomeViewState.EnableSearchButton -> enableSearchButton()
+                HomeViewModel.HomeViewState.EmptyList -> showEmptyList()
             }
         }
     }
@@ -94,6 +97,17 @@ class HomeFragment: Fragment(), MusicClickListener {
         binding.recyclerView.apply {
             musicAdapter.setList(list)
         }
+    }
+
+    private fun hiddenEmptyList() {
+        binding.errorImage.visibility = View.GONE
+    }
+
+    private fun showEmptyList() {
+        binding.errorImage.visibility = View.VISIBLE
+        binding.recyclerView.visibility = View.GONE
+        binding.progressBar.visibility = View.GONE
+        hiddenKeyboard()
     }
 
     private fun hiddenKeyboard() {
