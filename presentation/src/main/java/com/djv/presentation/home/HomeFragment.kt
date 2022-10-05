@@ -10,8 +10,12 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.djv.domain.model.Music
+import com.djv.presentation.R
 import com.djv.presentation.adapter.MusicAdapter
 import com.djv.presentation.adapter.MusicClickListener
 import com.djv.presentation.databinding.FragmentHomeBinding
@@ -118,6 +122,6 @@ class HomeFragment: Fragment(), MusicClickListener {
     }
 
     override fun onClick(music: Music) {
-        Toast.makeText(context, "Aqui veio ${music.artistName}", Toast.LENGTH_LONG).show()
+        findNavController().navigate(R.id.action_homeFragment_to_detailsFragment)
     }
 }

@@ -29,11 +29,15 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    viewBinding {
+        enabled = true
+    }
 }
 
 dependencies {
 
     def koin_version = '3.2.2'
+    def nav_version = "2.5.2"
 
     //Project Dependencies
     implementation project(path: ':presentation')
@@ -43,6 +47,11 @@ dependencies {
     //Koin
     implementation "io.insert-koin:koin-android:$koin_version"
     implementation "io.insert-koin:koin-androidx-navigation:$koin_version"
+
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
 
     //Tests
     implementation 'androidx.core:core-ktx:1.7.0'
