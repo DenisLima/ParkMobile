@@ -37,7 +37,7 @@ class HomeViewModel(
         viewModelScope.launch {
             musicRepository.getMusics(searchKey.encodeString())
                 .catch {
-                    HomeViewState.ErrorMessage(it.message ?: "")
+                    viewStateLv.postValue(HomeViewState.ErrorMessage(it.message ?: ""))
                 }
                 .collect {
                     viewStateLv.postValue(

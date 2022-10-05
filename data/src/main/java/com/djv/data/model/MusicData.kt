@@ -14,13 +14,13 @@ data class MusicData(
     val pictureUrl: String,
 
     @SerializedName("collectionName")
-    val collectionName: String,
+    val collectionName: String?,
 
     @SerializedName("collectionPrice")
-    val collectionPrice: String,
+    val collectionPrice: String?,
 
     @SerializedName("trackPrice")
-    val trackPrice: String,
+    val trackPrice: String?,
 
     @SerializedName("currency")
     val currency: String

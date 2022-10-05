@@ -12,11 +12,11 @@ data class Music(
 
     val pictureUrl: String,
 
-    val collectionName: String,
+    val collectionName: String?,
 
-    val collectionPrice: String,
+    val collectionPrice: String?,
 
-    val trackPrice: String,
+    val trackPrice: String?,
 
     val currency: String
 ): Parcelable
