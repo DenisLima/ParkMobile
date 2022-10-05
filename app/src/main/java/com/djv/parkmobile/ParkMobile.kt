@@ -2,7 +2,7 @@ package com.djv.parkmobile
 
 import android.app.Application
 import com.djv.data.di.dataModule
-import com.djv.presentation.home.presentationModule
+import com.djv.presentation.di.presentationModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
